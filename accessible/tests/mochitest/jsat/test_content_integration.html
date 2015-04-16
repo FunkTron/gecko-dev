@@ -147,6 +147,12 @@
            new ExpectedCursorChange(['apple', {'string': 'pushbutton'}])],
           [doc.defaultView.renameFruit, new ExpectedNameChange('banana')],
 
+          // Name and value changes inside a live-region (no cursor present)
+          [doc.defaultView.renameSlider,
+            new ExpectedNameChange('mover')],
+          [doc.defaultView.changeSliderValue,
+            new ExpectedValueChange('medium')],
+
           // Blur button and reset cursor
           [ContentMessages.focusSelector('button#fruit', true), null],
           [ContentMessages.clearCursor, 'AccessFu:CursorCleared'],
@@ -222,14 +228,14 @@
 
           // Open dialog in outer doc, while cursor is also in outer doc
           [ContentMessages.simpleMoveLast,
-           new ExpectedCursorChange(['banana', {'string': 'pushbutton'}])],
+           new ExpectedCursorChange(['mover'])],
           [doc.defaultView.showAlert,
             new ExpectedCursorChange(['This is an alert!',
               {'string': 'headingLevel', 'args': [1]},
               {'string': 'dialog'}])],
 
           [doc.defaultView.hideAlert,
-           new ExpectedCursorChange(['banana', {'string': 'pushbutton'}])],
+           new ExpectedCursorChange(['mover'])],
 
           [ContentMessages.clearCursor, 'AccessFu:CursorCleared'],
 

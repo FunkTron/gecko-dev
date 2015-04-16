@@ -190,7 +190,13 @@ this.EventManager.prototype = {
       {
         let acc = aEvent.accessible;
         if (acc === this.contentControl.vc.position) {
-          this.present(Presentation.nameChanged(acc));
+          this.present(Presentation.nameChanged(acc, false));
+        } else {
+          let {liveRegion, isPolite} = this._handleLiveRegion(aEvent,
+          ['text', 'all']);
+          if (liveRegion) {
+            this.present(Presentation.nameChanged(acc, isPolite));
+          }
         }
         break;
       }
@@ -292,7 +298,13 @@ this.EventManager.prototype = {
         let target = aEvent.accessible;
         if (position === target ||
             Utils.getEmbeddedControl(position) === target) {
-          this.present(Presentation.valueChanged(target));
+          this.present(Presentation.valueChanged(target, false));
+        } else {
+          let {liveRegion, isPolite} = this._handleLiveRegion(aEvent,
+          ['text', 'all']);
+          if (liveRegion) {
+            this.present(Presentation.valueChanged(target, isPolite));
+          }
         }
       }
     }
